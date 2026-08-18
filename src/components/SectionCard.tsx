@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import type { ReactNode } from 'react';
+import { CornerLattice } from './decorations/CornerLattice';
 
 interface SectionCardProps {
   children: ReactNode;
@@ -7,18 +8,26 @@ interface SectionCardProps {
   id?: string;
   /** Slightly larger padding for form-style cards */
   large?: boolean;
+  /**
+   * Visual theme:
+   * - parchment: cream background, red/gold text (default)
+   * - red: deep imperial red background, gold text
+   */
+  variant?: 'parchment' | 'red';
 }
 
 /**
- * Reusable parchment-style card with ornate gold borders and corner filigree.
- * Used for Welcome, Timeline content, Entourage groups, Dress Code, Gift Guide, and RSVP.
+ * Reusable thematic card with Chinese corner lattice ornaments.
  */
 export function SectionCard({
   children,
   className = '',
   id,
   large = false,
+  variant = 'parchment',
 }: SectionCardProps) {
+  const isRed = variant === 'red';
+
   return (
     <motion.section
       id={id}
@@ -31,61 +40,60 @@ export function SectionCard({
       <div
         className={`
           relative overflow-hidden rounded-xl
-          bg-[#FFFDF7]
-          border-2 border-gold
-          shadow-[0_0_0_1px_rgba(255,215,0,0.35),0_12px_40px_-8px_rgba(200,16,46,0.12),inset_0_0_40px_rgba(255,215,0,0.04)]
+          border-2
+          ${
+            isRed
+              ? 'bg-gradient-to-br from-[#C8102E] via-[#A00D24] to-[#8B0000] border-gold shadow-[0_0_0_1px_rgba(255,215,0,0.4),0_16px_48px_-8px_rgba(0,0,0,0.35),inset_0_0_50px_rgba(255,215,0,0.06)]'
+              : 'bg-[#FFFDF7] border-gold shadow-[0_0_0_1px_rgba(255,215,0,0.35),0_12px_40px_-8px_rgba(200,16,46,0.12),inset_0_0_40px_rgba(255,215,0,0.04)]'
+          }
           ${large ? 'p-7 sm:p-10' : 'p-6 sm:p-8'}
         `}
       >
-        {/* Corner filigree ornaments */}
-        <CornerFiligree position="tl" />
-        <CornerFiligree position="tr" />
-        <CornerFiligree position="bl" />
-        <CornerFiligree position="br" />
+        {/* Chinese corner lattice ornaments */}
+        <CornerLattice
+          position="tl"
+          color={isRed ? '#FFD700' : '#D4AF37'}
+          size={36}
+          className="opacity-80"
+        />
+        <CornerLattice
+          position="tr"
+          color={isRed ? '#FFD700' : '#D4AF37'}
+          size={36}
+          className="opacity-80"
+        />
+        <CornerLattice
+          position="bl"
+          color={isRed ? '#FFD700' : '#D4AF37'}
+          size={36}
+          className="opacity-80"
+        />
+        <CornerLattice
+          position="br"
+          color={isRed ? '#FFD700' : '#D4AF37'}
+          size={36}
+          className="opacity-80"
+        />
 
-        {/* Subtle inner gold line */}
-        <div className="pointer-events-none absolute inset-3 rounded-lg border border-gold/25" />
+        {/* Subtle inner border */}
+        <div
+          className={`pointer-events-none absolute inset-3 rounded-lg border ${
+            isRed ? 'border-gold/30' : 'border-gold/25'
+          }`}
+        />
+
+        {/* Faint 囍 watermark for red cards */}
+        {isRed && (
+          <div
+            className="pointer-events-none absolute inset-0 flex items-center justify-center opacity-[0.07] select-none"
+            aria-hidden="true"
+          >
+            <span className="font-display text-[140px] text-gold leading-none">囍</span>
+          </div>
+        )}
 
         <div className="relative z-10">{children}</div>
       </div>
     </motion.section>
-  );
-}
-
-function CornerFiligree({
-  position,
-}: {
-  position: 'tl' | 'tr' | 'bl' | 'br';
-}) {
-  const base =
-    'pointer-events-none absolute w-10 h-10 sm:w-12 sm:h-12 text-gold/70';
-  const map = {
-    tl: 'top-2 left-2',
-    tr: 'top-2 right-2 rotate-90',
-    bl: 'bottom-2 left-2 -rotate-90',
-    br: 'bottom-2 right-2 rotate-180',
-  };
-
-  return (
-    <svg
-      className={`${base} ${map[position]}`}
-      viewBox="0 0 48 48"
-      fill="none"
-      aria-hidden="true"
-    >
-      <path
-        d="M4 4 L4 18 M4 4 L18 4"
-        stroke="currentColor"
-        strokeWidth="1.75"
-        strokeLinecap="round"
-      />
-      <path
-        d="M8 8 Q14 8 14 14"
-        stroke="currentColor"
-        strokeWidth="1.25"
-        fill="none"
-      />
-      <circle cx="8" cy="8" r="1.5" fill="currentColor" />
-    </svg>
   );
 }

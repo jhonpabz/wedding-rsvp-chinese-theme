@@ -47,9 +47,17 @@ export function Gallery() {
   }, [lightboxIndex, goPrev, goNext]);
 
   return (
-    <section id="gallery" className="py-14 sm:py-20 paper-texture">
+    <section id="gallery" className="relative py-14 sm:py-20 paper-texture overflow-hidden">
+      {/* Faint 囍 watermark */}
+      <div
+        className="pointer-events-none absolute inset-0 flex items-center justify-center opacity-[0.03] select-none"
+        aria-hidden="true"
+      >
+        <span className="font-display text-[200px] text-imperial-red leading-none">囍</span>
+      </div>
+
       {/* Section header */}
-      <div className="text-center px-4 mb-10">
+      <div className="relative text-center px-4 mb-10">
         <p className="font-display text-xs sm:text-sm tracking-[0.3em] uppercase text-gold mb-2">
           Memories
         </p>
@@ -62,9 +70,9 @@ export function Gallery() {
         </p>
       </div>
 
-      {/* Responsive grid */}
-      <div className="mx-auto max-w-5xl px-4 sm:px-6">
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4">
+      {/* Responsive staggered grid */}
+      <div className="relative mx-auto max-w-5xl px-4 sm:px-6">
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-3 sm:gap-5">
           {galleryPhotos.map((photo, index) => (
             <GalleryTile
               key={photo.id}
@@ -110,7 +118,13 @@ function GalleryTile({
     <motion.button
       type="button"
       onClick={onOpen}
-      className="group relative aspect-[4/5] overflow-hidden rounded-lg border border-gold/40 shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/70"
+      className={`group relative aspect-[4/5] overflow-hidden rounded-md border-2 border-gold/50 shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/70 ${
+        index % 3 === 1 ? 'md:translate-y-4' : ''
+      }`}
+      style={{
+        boxShadow:
+          '0 0 0 1px rgba(255,215,0,0.25), 0 6px 20px rgba(200,16,46,0.1)',
+      }}
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-40px' }}
@@ -128,7 +142,7 @@ function GalleryTile({
       />
 
       {/* Hover overlay */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
       {photo.caption && (
         <p className="absolute bottom-0 left-0 right-0 p-3 text-left text-xs sm:text-sm text-white/95 font-display tracking-wide opacity-0 group-hover:opacity-100 transition-opacity duration-300 translate-y-1 group-hover:translate-y-0">
@@ -136,11 +150,11 @@ function GalleryTile({
         </p>
       )}
 
-      {/* Gold corner accents on hover */}
-      <div className="pointer-events-none absolute top-2 left-2 w-5 h-5 border-t border-l border-gold/0 group-hover:border-gold/70 transition-colors duration-300" />
-      <div className="pointer-events-none absolute top-2 right-2 w-5 h-5 border-t border-r border-gold/0 group-hover:border-gold/70 transition-colors duration-300" />
-      <div className="pointer-events-none absolute bottom-2 left-2 w-5 h-5 border-b border-l border-gold/0 group-hover:border-gold/70 transition-colors duration-300" />
-      <div className="pointer-events-none absolute bottom-2 right-2 w-5 h-5 border-b border-r border-gold/0 group-hover:border-gold/70 transition-colors duration-300" />
+      {/* Always-visible subtle gold corner brackets */}
+      <div className="pointer-events-none absolute top-1.5 left-1.5 w-4 h-4 border-t-2 border-l-2 border-gold/60 group-hover:border-gold transition-colors" />
+      <div className="pointer-events-none absolute top-1.5 right-1.5 w-4 h-4 border-t-2 border-r-2 border-gold/60 group-hover:border-gold transition-colors" />
+      <div className="pointer-events-none absolute bottom-1.5 left-1.5 w-4 h-4 border-b-2 border-l-2 border-gold/60 group-hover:border-gold transition-colors" />
+      <div className="pointer-events-none absolute bottom-1.5 right-1.5 w-4 h-4 border-b-2 border-r-2 border-gold/60 group-hover:border-gold transition-colors" />
     </motion.button>
   );
 }

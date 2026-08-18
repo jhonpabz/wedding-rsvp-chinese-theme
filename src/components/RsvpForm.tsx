@@ -91,8 +91,16 @@ export function RsvpForm() {
   };
 
   return (
-    <div id="rsvp" className="py-14 sm:py-24">
-      <SectionCard large>
+    <div id="rsvp" className="relative py-16 sm:py-24 paper-texture overflow-hidden">
+      {/* Soft decorative 囍 */}
+      <div
+        className="pointer-events-none absolute top-8 right-6 opacity-[0.04] select-none hidden sm:block"
+        aria-hidden="true"
+      >
+        <span className="font-display text-8xl text-imperial-red">囍</span>
+      </div>
+
+      <SectionCard large variant="parchment">
         <header className="text-center mb-8">
           <p className="font-display text-xs sm:text-sm tracking-[0.3em] uppercase text-gold mb-2">
             Your Response
