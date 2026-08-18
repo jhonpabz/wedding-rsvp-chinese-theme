@@ -1,0 +1,75 @@
+@import "tailwindcss";
+
+/* Custom theme tokens — Chinese New Year / Imperial aesthetic */
+@theme {
+  --color-imperial-red: #C8102E;
+  --color-imperial-red-dark: #8B0000;
+  --color-imperial-red-light: #E0153A;
+  --color-gold: #FFD700;
+  --color-gold-dark: #D4AF37;
+  --color-gold-light: #FFE55C;
+  --color-cream: #FFFDF7;
+  --color-porcelain: #FFFDF7;
+  --color-porcelain-dark: #F5F0E8;
+  --color-ink: #1A1A1A;
+  --color-ink-muted: #4A4A4A;
+  --font-display: "Cinzel", "Times New Roman", serif;
+  --font-body: "Inter", system-ui, sans-serif;
+}
+
+/* Base */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--color-cream);
+  color: var(--color-ink);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Subtle traditional paper / cloud texture */
+.paper-texture {
+  background-image:
+    radial-gradient(ellipse at 20% 30%, rgba(200, 16, 46, 0.03) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 70%, rgba(255, 215, 0, 0.04) 0%, transparent 45%),
+    url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23C8102E' fill-opacity='0.015'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+
+/* Gold border utility */
+.gold-border {
+  border: 2px solid var(--color-gold);
+  box-shadow:
+    0 0 0 1px rgba(255, 215, 0, 0.3),
+    0 4px 20px rgba(200, 16, 46, 0.08),
+    inset 0 0 30px rgba(255, 215, 0, 0.05);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-porcelain-dark);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-imperial-red);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-imperial-red-dark);
+}
+
+/* Focus styles for accessibility */
+:focus-visible {
+  outline: 2px solid var(--color-gold);
+  outline-offset: 2px;
+}
+
+/* Selection */
+::selection {
+  background-color: rgba(200, 16, 46, 0.2);
+  color: var(--color-ink);
+}
