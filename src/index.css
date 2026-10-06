@@ -125,7 +125,10 @@ section {
   position: fixed;
   inset: 0;
   z-index: 50;
-  overflow: auto;
+  box-sizing: border-box;
+  width: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
   display: flex;
   align-items: safe center;
   justify-content: center;
@@ -391,14 +394,14 @@ section {
   left: -42px;
   transform: rotate(-65deg);
   transform-origin: 50% 100%;
-  animation: fan-sway 4s ease-in-out infinite alternate;
+  animation: fan-sway 1s ease-in-out infinite alternate;
 }
 .envelope-fan-right {
   top: -130px;
   right: -40px;
   transform: rotate(110deg);
   transform-origin: 50% 100%;
-  animation: fan-sway 4.5s ease-in-out infinite alternate-reverse;
+  animation: fan-sway 1s ease-in-out infinite alternate-reverse;
   animation-delay: -2s;
 }
 .envelope-open-button {
